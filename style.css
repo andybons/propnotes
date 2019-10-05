@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  font: 14px/1.21 system-ui, sans-serif;
+  font-weight: 400;
+}
+main {
+  display: flex;
+}
+h1 {
+  text-align: center;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  padding: 0.15rem 0;
+}
+label {
+  cursor: pointer;
+}
+input[type='checkbox'] {
+  margin-right: 0.5rem;
+}
+a {
+  display: inline-block;
+  width: 5.5ch;
+}
+.IssueList-item {
+  background-color: #f1f2f3;
+  border-radius: 3px;
+  padding: 0.5rem 0.25rem;
+}
+.IssueList-item + .IssueList-item {
+  margin-top: 0.5rem;
+}
+.IssueList-itemLabel {
+  display: block;
+}
