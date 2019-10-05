@@ -1,42 +1,50 @@
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 html,
 body {
-  font: 14px/1.21 system-ui, sans-serif;
-  font-weight: 400;
+	font: 14px/1.21 system-ui, sans-serif;
+	font-weight: 400;
 }
 main {
-  display: flex;
+	display: flex;
 }
 h1 {
-  text-align: center;
+	text-align: center;
 }
 ul {
-  list-style: none;
-  padding: 0;
+	list-style: none;
+	padding: 0;
 }
 li {
-  padding: 0.15rem 0;
+	padding: 0.15rem 0;
 }
 label {
-  cursor: pointer;
+	cursor: pointer;
 }
 input[type='checkbox'] {
-  margin-right: 0.5rem;
+	margin-right: 0.5rem;
 }
 a {
-  display: inline-block;
-  width: 5.5ch;
+	display: inline-block;
+	width: 5.5ch;
+}
+.u-column {
+	flex: 1 0 0;
 }
 .IssueList-item {
-  background-color: #f1f2f3;
-  border-radius: 3px;
-  padding: 0.5rem 0.25rem;
+	background-color: #f1f2f3;
+	border-radius: 3px;
+	padding: 0.5rem 0.25rem;
 }
 .IssueList-item + .IssueList-item {
-  margin-top: 0.5rem;
+	margin-top: 0.5rem;
 }
 .IssueList-itemLabel {
-  display: block;
+	display: block;
+}
+.Issue-notes {
+	height: 5rem;
+	margin: 0.5rem 0 0 1.5rem;
+	width: calc(100% - 1.75rem);
 }
