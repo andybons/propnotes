@@ -71,6 +71,11 @@ a {
   font: inherit;
   padding: 0.25rem 0.15rem;
 }
+.IssueListHeader {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
 .Issue {
   background-color: #f1f2f3;
   border-radius: 3px;

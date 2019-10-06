@@ -15,7 +15,6 @@ const AttendeeList = ({ attendees, addAttendee, removeAttendee }) => {
                 <input
                   className="Attendee-checkbox"
                   type="checkbox"
-                  value={member}
                   onClick={e => {
                     e.target.checked ? addAttendee(member) : removeAttendee(member);
                   }}
@@ -68,12 +67,17 @@ const IssueList = ({
   notes,
   updateNote,
 }) => {
+  const [onlyShowSelected, setOnlyShowSelected] = useState(false);
   const [filter, setFilter] = useState('');
   const [filteredIssues, setFilteredIssues] = useState([...issues]);
 
-  const filterIssues = filter => {
+  const filterIssues = (onlyShowSelected, filter) => {
+    setOnlyShowSelected(onlyShowSelected);
     setFilter(filter);
     const filteredIssues = issues.filter(issue => {
+      if (onlyShowSelected && !selectedIssues.has(issue.number)) {
+        return false;
+      }
       if (filter.trim() === '') {
         return true;
       }
@@ -88,7 +92,19 @@ const IssueList = ({
 
   return (
     <>
-      <h2>Issues</h2>
+      <div class="IssueListHeader">
+        <h2>Issues</h2>
+        <label>
+          <input
+            type="checkbox"
+            onClick={e => {
+              filterIssues(e.target.checked, filter);
+            }}
+            checked={onlyShowSelected}
+          />{' '}
+          Only show selected
+        </label>
+      </div>
       <label className="Filter">
         <span class="Filter-label">Filter</span>
         <input
@@ -96,7 +112,7 @@ const IssueList = ({
           type="text"
           value={filter}
           onInput={e => {
-            filterIssues(e.target.value);
+            filterIssues(onlyShowSelected, e.target.value);
           }}
         />
       </label>
