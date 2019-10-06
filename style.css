@@ -1,100 +1,100 @@
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 html,
 body {
-	font: 14px/1.21 system-ui, sans-serif;
+  font: 14px/1.21 system-ui, sans-serif;
 }
 .Header {
-	border-bottom: 1px solid #f1f2f3;
-	padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f2f3;
+  padding: 0.75rem 0;
 }
 .Header-text {
-	font-weight: normal;
+  font-weight: normal;
 }
 main {
-	display: flex;
+  display: flex;
 }
 h1 {
-	text-align: center;
+  text-align: center;
 }
 h1,
 h2,
 h3,
 h4 {
-	margin-bottom: 0.25em;
+  margin-bottom: 0.25em;
 }
 ul {
-	list-style: none;
-	padding: 0;
+  list-style: none;
+  padding: 0;
 }
 li {
-	padding: 0.15rem 0;
+  padding: 0.15rem 0;
 }
 label {
-	cursor: pointer;
+  cursor: pointer;
 }
 a {
-	display: inline-block;
-	width: 5.5ch;
+  display: inline-block;
+  width: 5.5ch;
 }
 .App-input,
 .App-output {
-	padding: 1rem 1.5rem;
-	width: 50%;
-	max-width: 50%;
+  padding: 1rem 1.5rem;
+  width: 50%;
+  max-width: 50%;
 }
 .AttendeeList {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 .Attendee {
-	display: inline-block;
+  display: inline-block;
 }
 .Attendee + .Attendee {
-	margin-left: 0.75rem;
+  margin-left: 0.75rem;
 }
 .Attendee-checkbox {
-	margin-right: 0.25rem;
+  margin-right: 0.25rem;
 }
 .Filter {
-	align-items: center;
-	display: flex;
-	margin-bottom: 0.5rem;
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.5rem;
 }
 .Filter-label {
-	margin-right: 0.35rem;
+  margin-right: 0.35rem;
 }
 .Filter-input {
-	flex: 1;
-	font: inherit;
-	padding: 0.25rem 0.15rem;
+  flex: 1;
+  font: inherit;
+  padding: 0.25rem 0.15rem;
 }
 .Issue {
-	background-color: #f1f2f3;
-	border-radius: 3px;
-	padding: 0.5rem 0.25rem;
+  background-color: #f1f2f3;
+  border-radius: 3px;
+  padding: 0.5rem 0.25rem;
 }
 .Issue + .Issue {
-	margin-top: 0.5rem;
+  margin-top: 0.5rem;
 }
 .Issue-label {
-	display: block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .Issue-checkbox {
-	margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 .Issue-notes {
-	height: 5rem;
-	margin: 0.5rem 0 0 1.5rem;
-	width: calc(100% - 1.75rem);
+  height: 5rem;
+  margin: 0.5rem 0 0 1.5rem;
+  width: calc(100% - 1.75rem);
 }
 .Minutes {
-	overflow: auto;
-	white-space: pre-wrap;
-	word-break: break-all;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
