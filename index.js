@@ -69,25 +69,33 @@ const IssueList = ({
 }) => {
   const [onlyShowSelected, setOnlyShowSelected] = useState(false);
   const [filter, setFilter] = useState('');
-  const [filteredIssues, setFilteredIssues] = useState([...issues]);
 
-  const filterIssues = (onlyShowSelected, filter) => {
-    setOnlyShowSelected(onlyShowSelected);
-    setFilter(filter);
-    const filteredIssues = issues.filter(issue => {
-      if (onlyShowSelected && !selectedIssues.has(issue.number)) {
-        return false;
-      }
-      if (filter.trim() === '') {
-        return true;
-      }
-      filter = filter.toLowerCase();
-      return (
-        issue.title.toLowerCase().includes(filter) ||
-        (issue.number + '').toLowerCase().includes(filter)
-      );
-    });
-    setFilteredIssues(filteredIssues);
+  const filteredIssues = [...issues].filter(issue => {
+    if (onlyShowSelected && !selectedIssues.has(issue.number)) {
+      return false;
+    }
+    if (filter.trim() === '') {
+      return true;
+    }
+    let filterLower = filter.toLowerCase();
+    return (
+      issue.title.toLowerCase().includes(filterLower) ||
+      (issue.number + '').toLowerCase().includes(filterLower)
+    );
+  });
+
+  const handleOnlyShowSelectedClick = e => {
+    setOnlyShowSelected(e.target.checked);
+  };
+
+  const handleFilterInput = e => {
+    setFilter(e.target.value);
+  };
+
+  const newIssueClickHandler = issue => {
+    return selected => {
+      selected ? addSelectedIssue(issue) : removeSelectedIssue(issue);
+    };
   };
 
   return (
@@ -95,26 +103,13 @@ const IssueList = ({
       <div class="IssueListHeader">
         <h2>Issues</h2>
         <label>
-          <input
-            type="checkbox"
-            onClick={e => {
-              filterIssues(e.target.checked, filter);
-            }}
-            checked={onlyShowSelected}
-          />{' '}
+          <input type="checkbox" onClick={handleOnlyShowSelectedClick} checked={onlyShowSelected} />{' '}
           Only show selected
         </label>
       </div>
       <label className="Filter">
         <span class="Filter-label">Filter</span>
-        <input
-          className="Filter-input"
-          type="text"
-          value={filter}
-          onInput={e => {
-            filterIssues(onlyShowSelected, e.target.value);
-          }}
-        />
+        <input className="Filter-input" type="text" value={filter} onInput={handleFilterInput} />
       </label>
       <ul className="IssueList">
         {filteredIssues.map(issue => {
@@ -123,9 +118,7 @@ const IssueList = ({
               key={issue.number}
               issue={issue}
               selected={selectedIssues.has(issue.number)}
-              onClick={selected => {
-                selected ? addSelectedIssue(issue) : removeSelectedIssue(issue);
-              }}
+              onClick={newIssueClickHandler(issue)}
               note={notes[issue.number]}
               updateNote={updateNote}
             ></Issue>
@@ -137,10 +130,18 @@ const IssueList = ({
 };
 
 const MinutesOutput = ({ attendees, issues, selectedIssues, notes }) => {
+  const selectText = e => {
+    const range = document.createRange();
+    range.selectNode(e.target);
+    const sel = window.getSelection();
+    sel.removeAllRanges(); // required as of Chrome 60: https://www.chromestatus.com/features/6680566019653632
+    sel.addRange(range);
+  };
+
   return (
     <>
       <h2>Minutes</h2>
-      <pre className="Minutes">
+      <pre className="Minutes" onClick={selectText}>
         **
         {new Date().toISOString().substr(0, 10)} /{' '}
         {Array.from(attendees)
