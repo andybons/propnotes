@@ -24,10 +24,8 @@ func main() {
 	// -label:Proposal-Hold
 	// -label:proposal-accepted proposal sort:updated-desc
 	corpus.GitHub().Repo("golang", "go").ForeachIssue(func(issue *maintner.GitHubIssue) error {
-		if issue.Closed || issue.Milestone == nil || issue.Milestone.Title != "Proposal" {
-			return nil
-		}
-		if issue.HasLabel("Go2") ||
+		if issue.Closed ||
+			issue.HasLabel("Go2") ||
 			issue.HasLabel("Proposal-Crypto") ||
 			issue.HasLabel("Proposal-Hold") ||
 			issue.HasLabel("Proposal-Accepted") {
