@@ -1,6 +1,6 @@
 import './style';
 import { ISSUE_DATA } from './data.js';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 
 const AttendeeList = ({ attendees, addAttendee, removeAttendee }) => {
   const members = ['@andybons', '@bradfitz', '@ianlancetaylor', '@rsc', '@spf13', '@griesemer'];
@@ -173,8 +173,48 @@ const MinutesOutput = ({ attendees, issues, selectedIssues, notes }) => {
   );
 };
 
+const StoreType = {
+  SET: 'set', // Set()
+  OBJECT: 'object', // {}
+};
+
+const useLocalState = (key, typ, initialState) => {
+  const jsonVal = window.localStorage.getItem(key);
+  if (jsonVal === null) {
+    return useState(initialState);
+  }
+  let state = JSON.parse(jsonVal);
+  switch (typ) {
+    case StoreType.SET:
+      state = new Set(state);
+      break;
+    case StoreType.OBJECT:
+      // No conversion is needed.
+      break;
+    default:
+      throw Error('Unsupported storage type');
+  }
+  return useState(state);
+};
+
+const setLocalState = (key, typ, value) => {
+  switch (typ) {
+    case StoreType.SET:
+      // Set types don’t serialize properly.
+      // Convert to an array.
+      value = [...value];
+      break;
+    case StoreType.OBJECT:
+      // No conversion is needed.
+      break;
+    default:
+      throw Error('Unsupported storage type');
+  }
+  window.localStorage.setItem(key, JSON.stringify(value));
+};
+
 export default function App() {
-  const [attendees, setAttendees] = useState(new Set());
+  const [attendees, setAttendees] = useLocalState('attendees', StoreType.SET, new Set());
 
   const addAttendee = attendee => {
     attendees.add(attendee);
@@ -186,7 +226,11 @@ export default function App() {
     setAttendees(new Set(attendees));
   };
 
-  const [selectedIssues, setSelectedIssues] = useState(new Set());
+  const [selectedIssues, setSelectedIssues] = useLocalState(
+    'selectedIssues',
+    StoreType.SET,
+    new Set()
+  );
 
   const addSelectedIssue = issue => {
     selectedIssues.add(issue.number);
@@ -198,12 +242,19 @@ export default function App() {
     setSelectedIssues(new Set(selectedIssues));
   };
 
-  const [notes, updateNotes] = useState({}); // issue number -> notes
+  const [notes, updateNotes] = useLocalState('notes', StoreType.OBJECT, {}); // issue number -> notes
+
+  useEffect(() => {
+    setLocalState('attendees', StoreType.SET, attendees);
+    setLocalState('selectedIssues', StoreType.SET, selectedIssues);
+    setLocalState('notes', StoreType.OBJECT, notes);
+  });
 
   return (
     <>
       <header className="Header">
         <h1 className="Header-text">Go Proposal Minutes Generator</h1>
+        <span class="Header-storeInfo">Saved locally {new Date().toString()}</span>
       </header>
       <main>
         <div className="App-input">

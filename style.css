@@ -8,17 +8,17 @@ body {
   font: 14px/1.21 system-ui, sans-serif;
 }
 .Header {
+  align-items: center;
   border-bottom: 1px solid #f1f2f3;
-  padding: 0.75rem 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
 }
 .Header-text {
   font-weight: normal;
 }
 main {
   display: flex;
-}
-h1 {
-  text-align: center;
 }
 h1,
 h2,
