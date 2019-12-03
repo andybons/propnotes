@@ -19,16 +19,14 @@ func main() {
 		log.Fatal(err)
 	}
 	var issues []*ghIssue
-	// -label:Go2
-	// -label:Proposal-Crypto
-	// -label:Proposal-Hold
-	// -label:proposal-accepted proposal sort:updated-desc
 	corpus.GitHub().Repo("golang", "go").ForeachIssue(func(issue *maintner.GitHubIssue) error {
 		if issue.Closed ||
-			issue.HasLabel("Go2") ||
-			issue.HasLabel("Proposal-Crypto") ||
-			issue.HasLabel("Proposal-Hold") ||
+			issue.Title == "" ||
+			issue.NotExist ||
 			issue.HasLabel("Proposal-Accepted") {
+			return nil
+		}
+		if (issue.Milestone != nil && issue.Milestone.Title != "Proposal") && !issue.HasLabel("NeedsDecision") {
 			return nil
 		}
 		issues = append(issues, &ghIssue{
