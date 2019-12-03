@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"sort"
 
 	"golang.org/x/build/maintner"
 	"golang.org/x/build/maintner/godata"
@@ -37,6 +38,9 @@ func main() {
 		return nil
 	})
 	fmt.Fprintln(os.Stderr, len(issues), "issues")
+	sort.Slice(issues, func(i, j int) bool {
+		return issues[j].Number < issues[i].Number
+	})
 	var buf bytes.Buffer
 	buf.WriteString("export const ISSUE_DATA = ")
 	if err := json.NewEncoder(&buf).Encode(issues); err != nil {
