@@ -3,7 +3,7 @@ import { ISSUE_DATA } from './data.js';
 import { useState, useEffect } from 'preact/hooks';
 
 const AttendeeList = ({ attendees, addAttendee, removeAttendee }) => {
-  const members = ['@andybons', '@bradfitz', '@ianlancetaylor', '@rsc', '@spf13', '@griesemer'];
+  const members = ['@andybons', '@bradfitz', '@griesemer', '@ianlancetaylor', '@rsc', '@spf13'];
   return (
     <>
       <h2>Attendees</h2>
@@ -229,7 +229,7 @@ export default function App() {
   const [selectedIssues, setSelectedIssues] = useLocalState(
     'selectedIssues',
     StoreType.SET,
-    new Set()
+    new Set(),
   );
 
   const addSelectedIssue = issue => {
